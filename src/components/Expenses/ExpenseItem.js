@@ -1,3 +1,4 @@
+import { React, useState } from 'react';
 import ExpenseDate from './ExpenseDate';
 import './ExpenseItem.css';
 
@@ -6,11 +7,10 @@ import './ExpenseItem.css';
 
 const ExpenseItem = (props) => {
 
-    let title = props.title;
-
+    const [title, setTitle] = useState(props.title); //want default state value
     const clickHandler = () => {
-        title = 'Updated';
-        console.log(title)
+        setTitle('Updated!');
+        console.log(title);
     }
 
 
@@ -19,11 +19,16 @@ const ExpenseItem = (props) => {
         <div className="expense-item">
             <ExpenseDate date={props.date} />
             <div className="expense-item__description">
-                <h2>{title}</h2>
+                <h2>
+                    {title}
+                </h2>
             </div>
-            <div className="expense-item__price">{props.amount}rs</div>
-
-            <button onClick={clickHandler}>change title</button>
+            <div className="expense-item__price">
+                {props.amount}rs
+            </div>
+            <button onClick={clickHandler}>
+                change title
+            </button>
         </div>
     )
 }
