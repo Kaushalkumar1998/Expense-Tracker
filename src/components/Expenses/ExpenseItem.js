@@ -11,7 +11,6 @@ const ExpenseItem = (props) => {
     }
 
 
-
     return (
         <li>
             <div className="expense-item">

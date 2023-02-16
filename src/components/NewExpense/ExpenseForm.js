@@ -1,6 +1,7 @@
 import React from 'react'
 import "./ExpenseForm.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
 
 const ExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState('')
@@ -26,17 +27,22 @@ const ExpenseForm = (props) => {
             title: enteredTitle,
             amount: enteredAmount,
             date: new Date(enteredDate)
+
         }
         props.onSaveExpenseData(expenseData)
         setEnteredTitle('')
         setEnteredAmount('')
         setEnteredDate('')
-
-
-
+        console.log(expenseData)
+        localStorage.setItem("Items", JSON.stringify(expenseData));
     }
+
+    const store = (expenseData) => {
+        localStorage.getItem('Items', JSON.parse(expenseData))
+    }
+
     return (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler} {...store}>
             <div className='new-expense__controls'>
                 <div className='new-expense__control'>
                     <label>Title</label>
@@ -53,7 +59,7 @@ const ExpenseForm = (props) => {
             </div>
             <div className='new-expense__actions'>
                 <button type='button' onClick={props.onCancel}>Cancel</button>
-                <button type='submit'>Add Expense</button>
+                <button type='submit' >Add Expense</button>
             </div>
         </form>
     )
